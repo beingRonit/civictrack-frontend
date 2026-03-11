@@ -45,6 +45,16 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* Custom CivicTrack colors */
+  --color-navy: #1E3A5F;
+  --color-navy-dark: #162D4A;
+  --color-navy-darker: #0F1E30;
+  --color-civic-orange: #F97316;
+  --color-civic-green: #16A34A;
+  --color-civic-yellow: #EAB308;
+  --color-civic-blue: #2563EB;
+  --color-civic-red: #EF4444;
 }
 
 :root {
