@@ -132,14 +132,12 @@ export default function TicketDetail({ ticket }: TicketDetailProps) {
                     <Button
                       className="bg-civic-green hover:bg-civic-green/90 text-white font-semibold"
                       onClick={() => handleApproval('APPROVED')}
-                      disabled={ticket.approval === 'APPROVED'}
                     >
                       {'\u{2705} Approve'}
                     </Button>
                     <Button
                       variant="destructive"
                       onClick={() => handleApproval('REJECTED')}
-                      disabled={ticket.approval === 'REJECTED'}
                     >
                       {'\u{274C} Reject'}
                     </Button>
@@ -175,7 +173,7 @@ export default function TicketDetail({ ticket }: TicketDetailProps) {
                     <div className="flex items-center gap-3">
                       <Dropdown
                         value={status}
-                        onChange={setStatus}
+                        onChange={(val) => setStatus(val as typeof status)}
                         options={statusOptions}
                         className="w-52"
                       />
@@ -188,7 +186,7 @@ export default function TicketDetail({ ticket }: TicketDetailProps) {
                     <div className="flex items-center gap-3">
                       <Dropdown
                         value={priority}
-                        onChange={setPriority}
+                        onChange={(val) => setPriority(val as typeof priority)}
                         options={[
                           { value: 'LOW', label: 'Low', emoji: '🟢' },
                           { value: 'MEDIUM', label: 'Medium', emoji: '🟡' },

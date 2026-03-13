@@ -149,7 +149,7 @@ export default function TicketTable({ tickets, isAdmin = false }: TicketTablePro
 
                   {/* Title */}
                   <TableCell className="py-3 px-4 text-sm font-medium text-gray-700 dark:text-gray-200">
-                    {ticket.title || ticket.name || `Ticket #${ticket.id}`}
+                    {ticket.title || `Ticket #${ticket.id}`}
                   </TableCell>
 
                   {/* Category */}
