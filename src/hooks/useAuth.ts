@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { User } from '@/types'
 import { getUser, clearAuth } from '@/lib/auth'
-import { logout as apiLogout } from '@/lib/api'
+import { logoutApi } from '@/lib/api'
 
 export function useAuth() {
   const router = useRouter()
@@ -22,7 +22,7 @@ export function useAuth() {
   }, [router])
 
   async function logout() {
-    await apiLogout().catch(() => {})
+    await logoutApi().catch(() => {})
     clearAuth()
     router.push('/login')
   }

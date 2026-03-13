@@ -7,8 +7,23 @@ import TicketCard from '@/components/tickets/TicketCard'
 import { useTickets } from '@/hooks/useTickets'
 import { useSSE } from '@/hooks/useSSE'
 import { Input } from '@/components/ui/input'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import Dropdown from '@/components/shared/Dropdown'
 import { Ticket } from '@/types'
+
+const categoryOptions = [
+  { value: 'all', label: 'All Categories' },
+  { value: 'WATER', label: 'Water', emoji: '\u{1F4A7}' },
+  { value: 'ELECTRICITY', label: 'Electricity', emoji: '\u{26A1}' },
+  { value: 'ROAD', label: 'Road', emoji: '\u{1F6E3}\u{FE0F}' },
+  { value: 'GARBAGE', label: 'Garbage', emoji: '\u{1F5D1}\u{FE0F}' },
+]
+
+const statusOptions = [
+  { value: 'all', label: 'All Status' },
+  { value: 'OPEN', label: 'Pending', emoji: '\u{23F3}' },
+  { value: 'IN_PROGRESS', label: 'In Progress', emoji: '\u{1F504}' },
+  { value: 'RESOLVED', label: 'Resolved', emoji: '\u{2705}' },
+]
 
 export default function TicketsPage() {
   const { data: tickets, isLoading } = useTickets()
@@ -24,7 +39,7 @@ export default function TicketsPage() {
   if (search) {
     const q = search.toLowerCase()
     filtered = filtered.filter(
-      (t) => t.title.toLowerCase().includes(q) || String(t.id).includes(q)
+      (t) => (t.title?.toLowerCase() || '').includes(q) || String(t.id).includes(q)
     )
   }
   if (categoryFilter !== 'all') {
@@ -37,55 +52,26 @@ export default function TicketsPage() {
   return (
     <AppLayout>
       <div className="space-y-6">
-        <h1 className="text-2xl font-bold">All Tickets</h1>
+        <h1 className="text-2xl font-bold animate-fade-in-up">All Tickets</h1>
 
-        {/* Filters */}
-        <div className="flex flex-wrap gap-3">
-          <Input
-            placeholder="Search by title or ID..."
-            className="w-64"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-          <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-            <SelectTrigger className="w-40">
-              <SelectValue placeholder="Category" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Categories</SelectItem>
-              <SelectItem value="Water">Water</SelectItem>
-              <SelectItem value="Electricity">Electricity</SelectItem>
-              <SelectItem value="Road">Road</SelectItem>
-              <SelectItem value="Garbage">Garbage</SelectItem>
-            </SelectContent>
-          </Select>
-          <Select value={statusFilter} onValueChange={setStatusFilter}>
-            <SelectTrigger className="w-40">
-              <SelectValue placeholder="Status" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Status</SelectItem>
-              <SelectItem value="Pending">Pending</SelectItem>
-              <SelectItem value="InProgress">In Progress</SelectItem>
-              <SelectItem value="Resolved">Resolved</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
+        {/* Filters removed as requested. Keep only Sort by Priority if present. */}
 
         {/* Desktop: Table */}
-        <div className="hidden md:block">
+        <div className="hidden md:block animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
           <TicketTable tickets={filtered} />
         </div>
 
         {/* Mobile: Cards */}
         <div className="md:hidden grid gap-4">
-          {filtered.map((ticket) => (
-            <TicketCard key={ticket.id} ticket={ticket} />
+          {filtered.map((ticket, index) => (
+            <div key={ticket.id} className="animate-fade-in-up" style={{ animationDelay: `${0.1 + index * 0.05}s` }}>
+              <TicketCard ticket={ticket} />
+            </div>
           ))}
         </div>
 
         {filtered.length === 0 && (
-          <p className="text-center text-muted-foreground py-8">No tickets found</p>
+          <p className="text-center text-muted-foreground py-8 animate-fade-in">No tickets found</p>
         )}
       </div>
     </AppLayout>

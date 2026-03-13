@@ -10,7 +10,7 @@ import { ArrowLeft } from 'lucide-react'
 export default function TicketDetailPage() {
   const params = useParams()
   const router = useRouter()
-  const id = Number(params.id)
+  const id = params.id as string
   const { data: ticket, isLoading } = useTicket(id)
 
   if (isLoading) return <AppLayout><p>Loading...</p></AppLayout>

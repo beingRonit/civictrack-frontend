@@ -6,6 +6,9 @@ export interface Ticket {
   priority: string
   status: string
   approval: boolean
+  location?: string
+  latitude?: number
+  longitude?: number
   createdAt: string
   updatedAt: string
   userId: string

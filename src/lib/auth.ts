@@ -1,21 +1,35 @@
 import { User } from '@/types'
 
-const USER_KEY = 'civictrack_user'
+export function saveAuth(token: string, user: User) {
+  localStorage.setItem('civictrack_token', token)
+  localStorage.setItem('civictrack_user', JSON.stringify(user))
+}
 
-export function saveUser(user: User) {
-  localStorage.setItem(USER_KEY, JSON.stringify(user))
+export function clearAuth() {
+  localStorage.removeItem('civictrack_token')
+  localStorage.removeItem('civictrack_user')
+}
+
+export function getToken(): string | null {
+  if (typeof window === 'undefined') return null
+  return localStorage.getItem('civictrack_token')
 }
 
 export function getUser(): User | null {
   if (typeof window === 'undefined') return null
-  const raw = localStorage.getItem(USER_KEY)
-  return raw ? JSON.parse(raw) : null
+  const raw = localStorage.getItem('civictrack_user')
+  if (!raw) return null
+  try {
+    return JSON.parse(raw) as User
+  } catch {
+    return null
+  }
 }
 
-export function clearAuth() {
-  localStorage.removeItem(USER_KEY)
+export function isAdmin(): boolean {
+  return getUser()?.role === 'admin'
 }
 
-export function isAuthenticated(): boolean {
-  return !!getUser()
+export function isLoggedIn(): boolean {
+  return !!getToken()
 }

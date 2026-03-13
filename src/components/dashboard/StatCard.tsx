@@ -1,26 +1,28 @@
-import { Card, CardContent } from '@/components/ui/card'
-import { LucideIcon } from 'lucide-react'
-
 interface StatCardProps {
   label: string
   value: number | string
   accentColor: string
-  icon: LucideIcon
+  emoji: string
 }
 
-export default function StatCard({ label, value, accentColor, icon: Icon }: StatCardProps) {
+export default function StatCard({ label, value, accentColor, emoji }: StatCardProps) {
   return (
-    <Card className="relative overflow-hidden">
-      <div className={`absolute left-0 top-0 bottom-0 w-1 ${accentColor}`} />
-      <CardContent className="flex items-center gap-4 p-6">
-        <div className={`p-3 rounded-lg ${accentColor}/10`}>
-          <Icon className={`w-6 h-6 ${accentColor.replace('bg-', 'text-')}`} />
-        </div>
+    <div
+      className="bg-card rounded-[14px] p-5 px-6 shadow-[0_2px_12px_rgba(0,0,0,0.08)] border-t-4 transition-all duration-300 hover:-translate-y-[3px] hover:shadow-[0_8px_32px_rgba(0,0,0,0.16)]"
+      style={{ borderTopColor: accentColor }}
+    >
+      <div className="flex justify-between items-center">
         <div>
-          <p className="text-sm text-muted-foreground">{label}</p>
-          <p className="text-2xl font-bold">{value}</p>
+          <div className="text-muted-foreground text-[11px] font-bold uppercase tracking-[1px]">{label}</div>
+          <div className="text-[34px] font-black text-foreground mt-1">{value}</div>
         </div>
-      </CardContent>
-    </Card>
+        <div
+          className="w-[42px] h-[42px] rounded-[10px] flex items-center justify-center text-xl"
+          style={{ background: `${accentColor}18` }}
+        >
+          {emoji}
+        </div>
+      </div>
+    </div>
   )
 }
